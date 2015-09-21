@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+ <!-- Load the URDF into the ROS Parameter Server -->
+ <arg name="urdf_file" default="$(find xacro)/xacro.py '$(find wam_description)/robots/wam_4dof.urdf.xacro'" />
+ <param name="robot_description" command="$(arg urdf_file)" />
+
+ <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+	<remap from="/joint_states" to="/wam/joint_states"/>
+  </node>
+
+</launch>

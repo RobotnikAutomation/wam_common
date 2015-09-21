@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="wam_j1" params="parent">
+
+    <link name="wam_l1">
+        <inertial>
+            <mass value="2.3936" />
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+            <inertia  ixx="1.0" ixy="0.0"  ixz="0.0"  iyy="1.0"  iyz="0.0"  izz="1.0" />
+        </inertial>
+        <visual>
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+            <geometry name="wam_l1_visual">
+                <mesh filename="package://wam_description/meshes/link_j1.stl" scale="1.0 1.0 1.0" />
+            </geometry>
+            <material name="Grey" >
+                <color rgba="0.75 0.75 0.75 1.0"/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+            <geometry name="wam_l1_collision">
+                <mesh filename="package://wam_description/meshes/link_j1.stl" scale="1.0 1.0 1.0" />
+            </geometry>
+            <contact_coefficients kd="1.0" kp="1000.0" mu="0"/>
+        </collision>
+    </link>
+
+    <gazebo reference="wam_l1">
+        <material>Gazebo/White</material>
+        <selfCollide>true</selfCollide>
+    </gazebo>
+
+    <joint name="wam_j1" type="revolute">
+        <parent link="${parent}"/>
+        <child link="wam_l1"/>
+       <!-- <origin xyz="0.22 0.14 0.346" rpy="0 0 0" /> -->
+        <origin xyz="0.0 0.0 0.0" rpy="0 0 0" /> 
+        <axis xyz="0 0 1" />
+        <limit lower="-2.6" upper="2.6" effort="30" velocity="2.0"/>
+        <dynamics damping="100"/>
+     </joint>
+
+    <transmission name="wam_j1_transmission">
+      <type>transmission_interface/SimpleTransmission</type>
+      <actuator name="j1_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
+      </actuator>
+      <joint name="wam_j1">
+        <hardwareInterface>EffortJointInterface</hardwareInterface>
+      </joint>
+    </transmission>
+
+  </xacro:macro>
+
+</robot>

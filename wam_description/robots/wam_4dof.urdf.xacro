@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<robot name="wam_4dof" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find wam_description)/urdf/wam_4dof.gazebo.xacro" />
+
+  <!-- LINKS   -->  
+  <xacro:include filename="$(find wam_description)/urdf/wam_base.urdf.xacro" />
+ <xacro:include filename="$(find wam_description)/urdf/wam_j1.urdf.xacro" /> 
+  <xacro:include filename="$(find wam_description)/urdf/wam_j2.urdf.xacro" />
+  <xacro:include filename="$(find wam_description)/urdf/wam_j3.urdf.xacro" />
+  <xacro:include filename="$(find wam_description)/urdf/wam_j4.urdf.xacro" />
+  <xacro:include filename="$(find wam_description)/urdf/wam_tool_plate.urdf.xacro" /> 
+
+  <xacro:wam_base/>
+  <xacro:wam_j1 parent="wam_base"/> 
+  <xacro:wam_j2 parent="wam_l1"/> 
+  <xacro:wam_j3 parent="wam_l2"/>
+  <xacro:wam_j4 parent="wam_l3"/>
+  <xacro:wam_tool_plate parent="wam_l4"/>  
+
+  <!-- Gazebo ros control pluggin -->
+  <xacro:ros_control/>
+
+</robot>
+
